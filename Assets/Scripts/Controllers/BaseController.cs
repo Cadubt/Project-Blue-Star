@@ -10,7 +10,6 @@ namespace Assets.Scripts
     public class BaseController : MonoBehaviour
     {
         public Vector3 positionOnMap { get; set; }
-        asdasd
 
     }
 }
