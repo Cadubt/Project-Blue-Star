@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerController : BaseController
@@ -12,6 +13,7 @@ public class PlayerController : BaseController
     #region -- VARIAVEIS GLOBAIS --
 
     public int playerLife;
+    public Slider LifeBar;
     public float moveSpeed;
     private Rigidbody rb;
     public BoxCollider col;
@@ -31,16 +33,20 @@ public class PlayerController : BaseController
         Enemy = GameObject.FindWithTag("Enemy");
         playerLife = 150;
         transform.tag = "Player";
+        
     }
 
     // Use this for initialization
     void Start()
     {
-
+        
         moveSpeed = 3.5f;
         jumpForce = 5f;
         rb = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
+        LifeBar.minValue = 0;
+        LifeBar.maxValue = playerLife;
+        LifeBar.value = playerLife;
     }
 
     // Update is called once per frame
@@ -51,6 +57,9 @@ public class PlayerController : BaseController
         {
             SetTargetPosition();
         }
+
+        //- Controle de Vida
+        LifeControl();
 
         //- Movimentações - Mouse ou Joystick
         //MoveByMouse();
@@ -204,7 +213,13 @@ public class PlayerController : BaseController
     }
 
 
-
+    private void LifeControl()
+    {
+        if (LifeBar.value >= playerLife)
+            LifeBar.value = playerLife;
+        if (LifeBar.value <= LifeBar.minValue)
+            LifeBar.value = LifeBar.minValue;
+    }
 
     #endregion
 

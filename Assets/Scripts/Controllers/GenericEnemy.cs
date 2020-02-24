@@ -35,17 +35,17 @@ public class GenericEnemy : MonoBehaviour
 
         if (Vector3.Distance(transform.position, player.transform.position) < 1.5f)
         {
-            Atacar();
+            Atacar(40);
         }
         
     }
 
-    void Atacar()
+    void Atacar(int damage)
     {
         if (podeAtacar == true)
         {
             StartCoroutine("TempoDeAtaque");
-            player.GetComponent<PlayerController>().playerLife -= 40;
+            player.GetComponent<PlayerController>().playerLife -= damage;
         }
     }
 
